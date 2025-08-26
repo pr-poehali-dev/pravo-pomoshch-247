@@ -8,6 +8,8 @@ import ContactForm from '@/components/ContactForm';
 import BlogPreview from '@/components/BlogPreview';
 import AboutSection from '@/components/AboutSection';
 import Footer from '@/components/Footer';
+import ChatBot from '@/components/ChatBot';
+import PriceCalculator from '@/components/PriceCalculator';
 
 export default function Index() {
   return (
@@ -22,6 +24,10 @@ export default function Index() {
       <BlogPreview />
       <AboutSection />
       <Footer />
+      
+      {/* Floating Components */}
+      <ChatBot />
+      <PriceCalculator />
     </div>
   );
 }
