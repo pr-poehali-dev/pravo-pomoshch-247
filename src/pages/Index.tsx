@@ -21,9 +21,7 @@ export default function Index() {
           backgroundImage: "url('/img/2dc9386d-61c6-47ec-9c99-e5b9c1571909.jpg')",
           backgroundAttachment: 'fixed'
         }}
-      >
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-[0.5px]" />
-      </div>
+      />
       
       <Header />
       <HeroSection />

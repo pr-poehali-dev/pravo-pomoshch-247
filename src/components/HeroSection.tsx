@@ -3,14 +3,15 @@ import Icon from '@/components/ui/icon';
 
 export default function HeroSection() {
   return (
-    <section className="pt-24 pb-16 bg-gradient-to-b from-primary/5 to-white">
-      <div className="container mx-auto px-4 text-center">
+    <section className="pt-24 pb-16 relative">
+      <div className="absolute inset-0 bg-white/85 backdrop-blur-sm"></div>
+      <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h1 className="font-heading text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h1 className="font-heading text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight drop-shadow-lg">
             Вас задержали? Грозят депортацией? <br />
             <span className="text-destructive">Не платят пенсию?</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8">
+          <p className="text-xl text-gray-800 mb-8 font-semibold drop-shadow">
             ПравоПомощь 24/7 — юрист ответит за 30 минут, даже ночью.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
