@@ -69,7 +69,7 @@ export default function BlogPreview() {
           </Card>
         </div>
         <div className="text-center mt-8">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => window.location.href = '/blog'}>
             Все статьи <Icon name="ArrowRight" size={16} className="ml-2" />
           </Button>
         </div>
