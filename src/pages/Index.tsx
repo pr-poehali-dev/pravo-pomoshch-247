@@ -13,7 +13,18 @@ import PriceCalculator from '@/components/PriceCalculator';
 
 export default function Index() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Background Image */}
+      <div 
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/img/2dc9386d-61c6-47ec-9c99-e5b9c1571909.jpg')",
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-[1px]" />
+      </div>
+      
       <Header />
       <HeroSection />
       <ServicesSection />
