@@ -22,7 +22,7 @@ export default function Index() {
           backgroundAttachment: 'fixed'
         }}
       >
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[0.5px]" />
       </div>
       
       <Header />
