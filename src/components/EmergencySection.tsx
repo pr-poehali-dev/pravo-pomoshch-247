@@ -10,7 +10,7 @@ export default function EmergencySection() {
         <p className="text-xl mb-8 text-white/95 drop-shadow-sm">
           Задержали, грозят депортацией или нужна помощь прямо сейчас?
         </p>
-        <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-white text-red-600 hover:bg-gray-50 border-2 border-white font-semibold shadow-lg">
+        <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-white text-red-600 hover:bg-gray-50 border-2 border-white font-semibold shadow-lg" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
           <Icon name="Phone" size={20} className="mr-2" />
           Вызвать адвоката срочно
         </Button>

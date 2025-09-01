@@ -15,11 +15,11 @@ export default function HeroSection() {
             ПравоПомощь 24/7 — юрист ответит за 30 минут, даже ночью.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="text-lg px-8 py-6">
+            <Button size="lg" className="text-lg px-8 py-6" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
               <Icon name="MessageCircle" size={20} className="mr-2" />
               Получить помощь сейчас
             </Button>
-            <Button variant="destructive" size="lg" className="text-lg px-8 py-6">
+            <Button variant="destructive" size="lg" className="text-lg px-8 py-6" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
               <Icon name="AlertTriangle" size={20} className="mr-2" />
               Вызвать адвоката срочно
             </Button>

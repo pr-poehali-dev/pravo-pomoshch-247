@@ -107,7 +107,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
           Заказать консультацию
         </h3>
         <p className="text-slate-600 text-sm">
-          Оставьте заявку и получите бесплатную консультацию юриста
+          Оставьте заявку и получите консультацию юриста
         </p>
       </div>
 
@@ -165,12 +165,12 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
 
         {/* Кнопка отправки */}
         <Button 
-          type="submit" 
+          type="button" 
           className="w-full mt-6"
-          disabled={!isFormValid}
+          onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}
         >
-          <Icon name={copied ? "Check" : "Copy"} size={16} className="mr-2" />
-          {copied ? "Заявка скопирована!" : "Скопировать заявку"}
+          <Icon name="Send" size={16} className="mr-2" />
+          Заказать консультацию
         </Button>
 
         {/* Уведомление */}

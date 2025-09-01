@@ -62,7 +62,7 @@ export default function ContactForm() {
                     className="bg-white/90"
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full">
+                <Button type="button" size="lg" className="w-full" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
                   <Icon name="Send" size={20} className="mr-2" />
                   Получить консультацию
                 </Button>
