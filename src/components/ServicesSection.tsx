@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
+import ConsultationForm from './ConsultationForm';
 
 interface Service {
   id: string;
@@ -249,6 +250,15 @@ const services: Service[] = [
 
 export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [showConsultationDialog, setShowConsultationDialog] = useState(false);
+
+  const handleConsultationSubmit = (data: { name: string; phone: string; region: string }) => {
+    console.log('Заявка на консультацию:', data);
+    // Здесь будет обработка отправки заявки
+    setShowConsultationDialog(false);
+    // Показать уведомление об успешной отправке
+    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+  };
 
   return (
     <section id="services" className="py-16 relative">
@@ -411,10 +421,23 @@ export default function ServicesSection() {
                     
                     {/* Кнопки действий */}
                     <div className="mt-8 flex space-x-4">
-                      <Button className="flex-1">
-                        <Icon name="Phone" size={16} className="mr-2" />
-                        Заказать консультацию
-                      </Button>
+                      <Dialog open={showConsultationDialog} onOpenChange={setShowConsultationDialog}>
+                        <DialogTrigger asChild>
+                          <Button className="flex-1">
+                            <Icon name="Phone" size={16} className="mr-2" />
+                            Заказать консультацию
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-md">
+                          <DialogHeader>
+                            <DialogTitle className="text-center">Консультация юриста</DialogTitle>
+                            <DialogDescription className="text-center">
+                              Заполните форму для получения бесплатной консультации
+                            </DialogDescription>
+                          </DialogHeader>
+                          <ConsultationForm onSubmit={handleConsultationSubmit} />
+                        </DialogContent>
+                      </Dialog>
                       <Button variant="outline" className="flex-1">
                         <Icon name="Calculator" size={16} className="mr-2" />
                         Рассчитать стоимость

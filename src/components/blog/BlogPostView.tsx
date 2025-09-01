@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Icon from '@/components/ui/icon';
+import ConsultationForm from '../ConsultationForm';
 import { BlogPost } from './BlogPostData';
 
 interface BlogPostViewProps {
@@ -11,6 +14,14 @@ interface BlogPostViewProps {
 }
 
 export default function BlogPostView({ post, onBack }: BlogPostViewProps) {
+  const [showConsultationDialog, setShowConsultationDialog] = useState(false);
+
+  const handleConsultationSubmit = (data: { name: string; phone: string; region: string }) => {
+    console.log('Заявка на консультацию из блога:', data);
+    // Здесь будет обработка отправки заявки
+    setShowConsultationDialog(false);
+    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -75,10 +86,23 @@ export default function BlogPostView({ post, onBack }: BlogPostViewProps) {
                 Получите персональную консультацию от автора статьи
               </p>
               <div className="flex space-x-3">
-                <Button>
-                  <Icon name="Phone" size={16} className="mr-2" />
-                  Заказать консультацию
-                </Button>
+                <Dialog open={showConsultationDialog} onOpenChange={setShowConsultationDialog}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Icon name="Phone" size={16} className="mr-2" />
+                      Заказать консультацию
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="text-center">Консультация юриста</DialogTitle>
+                      <DialogDescription className="text-center">
+                        Заполните форму для получения консультации по теме статьи
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ConsultationForm onSubmit={handleConsultationSubmit} />
+                  </DialogContent>
+                </Dialog>
                 <Button variant="outline">
                   <Icon name="MessageCircle" size={16} className="mr-2" />
                   Написать в чат
