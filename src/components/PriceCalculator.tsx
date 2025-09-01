@@ -271,7 +271,7 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
 
             {/* Actions */}
             <div className="flex space-x-3">
-              <Button className="flex-1">
+              <Button className="flex-1" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
                 <Icon name="MessageCircle" size={16} className="mr-2" />
                 Заказать услугу
               </Button>

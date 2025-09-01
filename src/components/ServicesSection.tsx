@@ -298,7 +298,7 @@ export default function ServicesSection() {
                       <Icon name="ArrowRight" size={16} className="ml-2" />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto mx-4">
                     <DialogHeader>
                       <DialogTitle className="flex items-center space-x-2 text-xl">
                         <Icon name={service.icon as any} size={24} className="text-primary" />
@@ -309,18 +309,18 @@ export default function ServicesSection() {
                       </DialogDescription>
                     </DialogHeader>
                     
-                    <div className="grid md:grid-cols-2 gap-6 mt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                       {/* Услуги */}
                       <div>
-                        <h4 className="font-semibold text-lg mb-3 flex items-center">
-                          <Icon name="CheckCircle" size={20} className="text-green-600 mr-2" />
+                        <h4 className="font-semibold text-base md:text-lg mb-3 flex items-center">
+                          <Icon name="CheckCircle" size={18} className="text-green-600 mr-2" />
                           Что входит в услугу
                         </h4>
                         <ul className="space-y-2">
                           {service.details.services.map((item, index) => (
                             <li key={index} className="flex items-start space-x-2 text-sm">
-                              <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                              <span>{item}</span>
+                              <Icon name="Check" size={14} className="text-green-600 mt-0.5 flex-shrink-0" />
+                              <span className="leading-relaxed">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -328,15 +328,15 @@ export default function ServicesSection() {
                       
                       {/* Преимущества */}
                       <div>
-                        <h4 className="font-semibold text-lg mb-3 flex items-center">
-                          <Icon name="Star" size={20} className="text-yellow-600 mr-2" />
+                        <h4 className="font-semibold text-base md:text-lg mb-3 flex items-center">
+                          <Icon name="Star" size={18} className="text-yellow-600 mr-2" />
                           Наши преимущества
                         </h4>
                         <ul className="space-y-2">
                           {service.details.advantages.map((item, index) => (
                             <li key={index} className="flex items-start space-x-2 text-sm">
-                              <Icon name="Star" size={16} className="text-yellow-600 mt-0.5 flex-shrink-0" />
-                              <span>{item}</span>
+                              <Icon name="Star" size={14} className="text-yellow-600 mt-0.5 flex-shrink-0" />
+                              <span className="leading-relaxed">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -347,15 +347,15 @@ export default function ServicesSection() {
                     
                     {/* Гарантии */}
                     <div className="mt-6">
-                      <h4 className="font-semibold text-lg mb-3 flex items-center">
-                        <Icon name="Shield" size={20} className="text-green-600 mr-2" />
+                      <h4 className="font-semibold text-base md:text-lg mb-3 flex items-center">
+                        <Icon name="Shield" size={18} className="text-green-600 mr-2" />
                         Наши гарантии
                       </h4>
-                      <div className="grid md:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {service.details.guarantees.map((item, index) => (
-                          <div key={index} className="flex items-center space-x-2 text-sm bg-green-50 p-3 rounded-lg">
-                            <Icon name="ShieldCheck" size={16} className="text-green-600 flex-shrink-0" />
-                            <span>{item}</span>
+                          <div key={index} className="flex items-start space-x-2 text-sm bg-green-50 p-3 rounded-lg">
+                            <Icon name="ShieldCheck" size={14} className="text-green-600 flex-shrink-0 mt-0.5" />
+                            <span className="leading-relaxed">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -363,22 +363,22 @@ export default function ServicesSection() {
                     
                     {/* Примеры */}
                     <div className="mt-6">
-                      <h4 className="font-semibold text-lg mb-3 flex items-center">
-                        <Icon name="TrendingUp" size={20} className="text-orange-600 mr-2" />
+                      <h4 className="font-semibold text-base md:text-lg mb-3 flex items-center">
+                        <Icon name="TrendingUp" size={18} className="text-orange-600 mr-2" />
                         Реальные результаты
                       </h4>
                       <div className="space-y-3">
                         {service.details.examples.map((item, index) => (
-                          <div key={index} className="bg-orange-50 p-4 rounded-lg text-sm">
-                            <Icon name="Quote" size={16} className="text-orange-600 mb-2" />
-                            {item}
+                          <div key={index} className="bg-orange-50 p-3 md:p-4 rounded-lg text-sm">
+                            <Icon name="Quote" size={14} className="text-orange-600 mb-2" />
+                            <span className="leading-relaxed">{item}</span>
                           </div>
                         ))}
                       </div>
                     </div>
                     
                     {/* Кнопки действий */}
-                    <div className="mt-8 flex space-x-4">
+                    <div className="mt-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                       <Dialog open={showConsultationDialog} onOpenChange={setShowConsultationDialog}>
                         <DialogTrigger asChild>
                           <Button className="flex-1">
