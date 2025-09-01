@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import ConsultationForm from './ConsultationForm';
+import PriceCalculator from './PriceCalculator';
 
 interface Service {
   id: string;
@@ -396,13 +397,14 @@ export default function ServicesSection() {
                           <ConsultationForm onSubmit={handleConsultationSubmit} />
                         </DialogContent>
                       </Dialog>
-                      <Button variant="outline" className="flex-1" onClick={() => {
-                        const calculatorSection = document.getElementById('calculator');
-                        calculatorSection?.scrollIntoView({ behavior: 'smooth' });
-                      }}>
-                        <Icon name="Calculator" size={16} className="mr-2" />
-                        Рассчитать стоимость
-                      </Button>
+                      <PriceCalculator
+                        triggerButton={
+                          <Button variant="outline" className="flex-1">
+                            <Icon name="Calculator" size={16} className="mr-2" />
+                            Рассчитать стоимость
+                          </Button>
+                        }
+                      />
                     </div>
                   </DialogContent>
                 </Dialog>
