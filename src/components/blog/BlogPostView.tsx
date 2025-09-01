@@ -18,9 +18,10 @@ export default function BlogPostView({ post, onBack }: BlogPostViewProps) {
 
   const handleConsultationSubmit = (data: { name: string; phone: string; region: string }) => {
     console.log('Заявка на консультацию из блога:', data);
-    // Здесь будет обработка отправки заявки
-    setShowConsultationDialog(false);
-    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+    // Закрываем диалог после копирования
+    setTimeout(() => {
+      setShowConsultationDialog(false);
+    }, 2500);
   };
   return (
     <div className="min-h-screen bg-gray-50">

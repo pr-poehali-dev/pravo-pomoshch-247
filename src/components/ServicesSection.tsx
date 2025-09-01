@@ -254,10 +254,10 @@ export default function ServicesSection() {
 
   const handleConsultationSubmit = (data: { name: string; phone: string; region: string }) => {
     console.log('Заявка на консультацию:', data);
-    // Здесь будет обработка отправки заявки
-    setShowConsultationDialog(false);
-    // Показать уведомление об успешной отправке
-    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+    // Закрываем диалог после копирования
+    setTimeout(() => {
+      setShowConsultationDialog(false);
+    }, 2500);
   };
 
   return (
