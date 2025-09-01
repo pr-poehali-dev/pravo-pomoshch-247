@@ -26,6 +26,17 @@ export default function Index() {
       <Header />
       <HeroSection />
       <ServicesSection />
+      <section id="calculator" className="py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="font-heading text-3xl font-bold text-primary mb-4">
+            Рассчитайте стоимость услуг
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8">
+            Воспользуйтесь калькулятором для предварительного расчёта
+          </p>
+          <PriceCalculator />
+        </div>
+      </section>
       <HowItWorks />
       <EmergencySection />
       <Testimonials />
@@ -36,7 +47,6 @@ export default function Index() {
       
       {/* Floating Components */}
       <ChatBot />
-      <PriceCalculator />
     </div>
   );
 }

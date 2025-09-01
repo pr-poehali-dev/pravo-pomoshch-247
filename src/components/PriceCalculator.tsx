@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
 import Icon from '@/components/ui/icon';
 
 interface ServiceOption {
@@ -33,8 +33,8 @@ const services: ServiceOption[] = [
   {
     id: 'migration',
     name: 'Миграция и документы',
-    basePrice: 15000,
-    timeframe: '2-3 недели',
+    basePrice: 1500,
+    timeframe: 'от 1 дня',
     description: 'РВП, ВНЖ, патенты, гражданство'
   },
   {
@@ -55,39 +55,50 @@ const services: ServiceOption[] = [
 
 const additionalServices: AdditionalService[] = [
   {
-    id: 'urgent',
-    name: 'Срочное рассмотрение',
-    price: 10000,
-    description: 'Сокращение сроков в 2 раза'
+    id: 'rvp_full',
+    name: 'Полное сопровождение РВП',
+    price: 8400,
+    description: 'План действий и сопровождение (до 9 900 ₽)'
   },
   {
-    id: 'documents',
-    name: 'Подготовка документов',
-    price: 5000,
-    description: 'Сбор и оформление документов'
+    id: 'vnj_consultation',
+    name: 'Консультация по ВНЖ',
+    price: 1500,
+    description: 'Оценка шансов и план действий (3 000 ₽)'
   },
   {
-    id: 'representation',
-    name: 'Представительство в суде',
-    price: 15000,
-    description: 'Участие юриста в судебных заседаниях'
+    id: 'vnj_full',
+    name: 'Полное сопровождение ВНЖ',
+    price: 18500,
+    description: 'От консультации до получения документа (20 000 ₽)'
   },
   {
-    id: 'consultation',
-    name: 'Дополнительные консультации',
-    price: 3000,
-    description: '3 консультации в течение месяца'
+    id: 'citizenship_analysis',
+    name: 'Анализ перспектив гражданства',
+    price: 1500,
+    description: 'Оценка возможностей и сроков (3 000 ₽)'
+  },
+  {
+    id: 'citizenship_full',
+    name: 'Полное сопровождение гражданства',
+    price: 28490,
+    description: 'От подготовки до паспорта РФ (29 990 ₽)'
+  },
+  {
+    id: 'emergency_lawyer',
+    name: 'Экстренная помощь адвоката',
+    price: 18500,
+    description: 'Выезд при задержании / защита (20 000 ₽)'
   }
 ];
 
 const complexityMultipliers = {
-  simple: { name: 'Простое дело', multiplier: 1 },
-  medium: { name: 'Средней сложности', multiplier: 1.5 },
-  complex: { name: 'Сложное дело', multiplier: 2 }
+  simple: { name: 'Консультация', multiplier: 1 },
+  medium: { name: 'Подготовка документов', multiplier: 3.3 },
+  complex: { name: 'Полное сопровождение', multiplier: 13.3 }
 };
 
 export default function PriceCalculator() {
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string>('');
   const [complexity, setComplexity] = useState<keyof typeof complexityMultipliers>('simple');
   const [selectedAdditional, setSelectedAdditional] = useState<string[]>([]);
@@ -129,23 +140,15 @@ export default function PriceCalculator() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="fixed bottom-6 left-6 z-40 shadow-lg">
-          <Icon name="Calculator" size={20} className="mr-2" />
-          Калькулятор стоимости
-        </Button>
-      </DialogTrigger>
-      
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
-            <Icon name="Calculator" size={24} className="text-primary" />
+    <div className="max-w-4xl mx-auto">
+      <Card className="bg-white/95 backdrop-blur-sm shadow-lg">
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center space-x-2 text-2xl">
+            <Icon name="Calculator" size={28} className="text-primary" />
             <span>Калькулятор стоимости услуг</span>
-          </DialogTitle>
-        </DialogHeader>
-
-        <div className="space-y-6">
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
           {/* Service Selection */}
           <div>
             <label className="text-sm font-medium mb-3 block">Выберите услугу</label>
@@ -172,7 +175,7 @@ export default function PriceCalculator() {
             <>
               {/* Complexity */}
               <div>
-                <label className="text-sm font-medium mb-3 block">Сложность дела</label>
+                <label className="text-sm font-medium mb-3 block">Уровень услуги</label>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {Object.entries(complexityMultipliers).map(([key, value]) => (
                     <Card 
@@ -232,7 +235,7 @@ export default function PriceCalculator() {
                   </div>
                   
                   <div className="flex justify-between">
-                    <span>Сложность дела ({complexityMultipliers[complexity].name})</span>
+                    <span>Уровень ({complexityMultipliers[complexity].name})</span>
                     <span>x{complexityMultipliers[complexity].multiplier}</span>
                   </div>
 
@@ -277,8 +280,8 @@ export default function PriceCalculator() {
               </div>
             </>
           )}
-        </div>
-      </DialogContent>
-    </Dialog>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
