@@ -12,3 +12,19 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Основные страницы
+Allow: /blog
+Allow: /blog/*
+
+# Статические ресурсы
+Allow: /img/
+Allow: /icons/
+Allow: *.css
+Allow: *.js
+
+# Карта сайта
+Sitemap: https://pravo-pomoshch-247.poehali.dev/sitemap.xml
+
+# Дополнительные инструкции для поисковых роботов
+Crawl-delay: 1

@@ -10,8 +10,17 @@ import AboutSection from '@/components/AboutSection';
 import Footer from '@/components/Footer';
 import ChatBot from '@/components/ChatBot';
 import PriceCalculator from '@/components/PriceCalculator';
+import { useSEO } from '@/hooks/useSEO';
 
 export default function Index() {
+  useSEO({
+    title: 'ПравоПомощь 24/7 — Юридическая помощь круглосуточно | Адвокат, миграция, пенсии',
+    description: 'ПравоПомощь 24/7 — круглосуточная юридическая помощь. Защита в суде, миграционное право, перерасчет пенсий, помощь при задержании. Консультация за 30 минут!',
+    keywords: 'юрист круглосуточно, адвокат срочно, миграционное право, перерасчет пенсии, защита в суде, помощь при задержании, юридическая консультация',
+    ogTitle: 'ПравоПомощь 24/7 — Круглосуточная юридическая помощь',
+    ogDescription: 'Профессиональная юридическая помощь 24/7. Защита в суде, миграционное право, перерасчет пенсий. Ответим за 30 минут!',
+    canonical: 'https://pravo-pomoshch-247.poehali.dev/'
+  });
   return (
     <div className="min-h-screen relative">
       {/* Background Image */}
