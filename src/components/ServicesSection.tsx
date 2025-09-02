@@ -132,7 +132,7 @@ const services: Service[] = [
     title: 'Перерасчёт пенсии',
     description: 'Анализ по чек-листу ПФР. Прибавка реальна.',
     icon: 'Calculator',
-    price: 'от 10 000 ₽',
+    price: '19 900 ₽',
     duration: 'от 1 недели',
     urgent: false,
     details: {
