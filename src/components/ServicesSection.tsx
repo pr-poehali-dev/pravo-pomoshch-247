@@ -186,7 +186,7 @@ const services: Service[] = [
     title: 'Услуги адвоката',
     description: 'Экстренный выезд, защита в суде',
     icon: 'Shield',
-    price: 'от 5 000 ₽',
+    price: 'от 20 000 ₽',
     duration: 'немедленно',
     urgent: true,
     details: {
