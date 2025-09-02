@@ -40,14 +40,14 @@ const services: ServiceOption[] = [
   {
     id: 'pension',
     name: 'Перерасчёт пенсии',
-    basePrice: 10000,
+    basePrice: 19900,
     timeframe: '1-2 недели',
     description: 'Анализ по чек-листу ПФР'
   },
   {
     id: 'lawyer',
     name: 'Услуги адвоката',
-    basePrice: 5000,
+    basePrice: 20000,
     timeframe: 'немедленно',
     description: 'Экстренный выезд, защита в суде'
   }
@@ -92,11 +92,7 @@ const additionalServices: AdditionalService[] = [
   }
 ];
 
-const complexityMultipliers = {
-  simple: { name: 'Консультация', multiplier: 1 },
-  medium: { name: 'Подготовка документов', multiplier: 3.3 },
-  complex: { name: 'Полное сопровождение', multiplier: 13.3 }
-};
+
 
 interface PriceCalculatorProps {
   triggerButton?: React.ReactNode;
@@ -107,7 +103,7 @@ interface PriceCalculatorProps {
 export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }: PriceCalculatorProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string>('');
-  const [complexity, setComplexity] = useState<keyof typeof complexityMultipliers>('simple');
+
   const [selectedAdditional, setSelectedAdditional] = useState<string[]>([]);
 
   const dialogOpen = isOpen !== undefined ? isOpen : internalIsOpen;
@@ -119,7 +115,7 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
     const service = services.find(s => s.id === selectedService);
     if (!service) return 0;
 
-    let total = service.basePrice * complexityMultipliers[complexity].multiplier;
+    let total = service.basePrice;
 
     selectedAdditional.forEach(addId => {
       const additional = additionalServices.find(a => a.id === addId);
@@ -145,7 +141,6 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
 
   const resetCalculator = () => {
     setSelectedService('');
-    setComplexity('simple');
     setSelectedAdditional([]);
   };
 
@@ -176,28 +171,6 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
 
         {selectedService && (
           <>
-            {/* Complexity */}
-            <div>
-              <label className="text-sm font-medium mb-3 block">Уровень услуги</label>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {Object.entries(complexityMultipliers).map(([key, value]) => (
-                  <Card 
-                    key={key}
-                    className={`cursor-pointer transition-all ${
-                      complexity === key ? 'ring-2 ring-primary bg-primary/5' : 'hover:bg-gray-50'
-                    }`}
-                    onClick={() => setComplexity(key as keyof typeof complexityMultipliers)}
-                  >
-                    <CardContent className="p-4 text-center">
-                      <h4 className="font-medium">{value.name}</h4>
-                      <Badge variant="secondary" className="mt-2">
-                        x{value.multiplier}
-                      </Badge>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
 
             {/* Additional Services */}
             <div>
@@ -235,11 +208,6 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
                 <div className="flex justify-between">
                   <span>Базовая стоимость ({getSelectedService()?.name})</span>
                   <span>{getSelectedService()?.basePrice.toLocaleString()} ₽</span>
-                </div>
-                
-                <div className="flex justify-between">
-                  <span>Уровень ({complexityMultipliers[complexity].name})</span>
-                  <span>x{complexityMultipliers[complexity].multiplier}</span>
                 </div>
 
                 {selectedAdditional.length > 0 && (
