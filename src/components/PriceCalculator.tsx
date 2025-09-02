@@ -146,10 +146,10 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
 
   const renderCalculatorContent = () => {
     return (
-      <>
+      <div itemScope itemType="https://schema.org/PriceSpecification">
         {/* Service Selection */}
         <div>
-          <label className="text-sm font-medium mb-3 block">Выберите услугу</label>
+          <label className="text-sm font-medium mb-3 block">Выберите юридическую услугу</label>
           <Select value={selectedService} onValueChange={setSelectedService}>
             <SelectTrigger>
               <SelectValue placeholder="Выберите тип юридической услуги" />
@@ -157,10 +157,11 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
             <SelectContent>
               {services.map(service => (
                 <SelectItem key={service.id} value={service.id}>
-                  <div className="flex flex-col">
-                    <span className="font-medium">{service.name}</span>
+                  <div className="flex flex-col" itemScope itemType="https://schema.org/Service">
+                    <span className="font-medium" itemProp="name">{service.name}</span>
                     <span className="text-xs text-muted-foreground">
-                      от {service.basePrice.toLocaleString()} ₽ · {service.timeframe}
+                      <span itemProp="priceRange">от {service.basePrice.toLocaleString()} ₽</span> · 
+                      <span itemProp="duration">{service.timeframe}</span>
                     </span>
                   </div>
                 </SelectItem>
@@ -174,24 +175,24 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
 
             {/* Additional Services */}
             <div>
-              <label className="text-sm font-medium mb-3 block">Дополнительные услуги</label>
+              <label className="text-sm font-medium mb-3 block">Дополнительные юридические услуги</label>
               <div className="space-y-3">
                 {additionalServices.map(service => (
-                  <div key={service.id} className="flex items-start space-x-3">
+                  <div key={service.id} className="flex items-start space-x-3" itemScope itemType="https://schema.org/Service">
                     <Checkbox
                       id={service.id}
                       checked={selectedAdditional.includes(service.id)}
                       onCheckedChange={() => handleAdditionalServiceToggle(service.id)}
                     />
                     <div className="flex-1">
-                      <label htmlFor={service.id} className="text-sm font-medium cursor-pointer">
+                      <label htmlFor={service.id} className="text-sm font-medium cursor-pointer" itemProp="name">
                         {service.name}
                       </label>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-muted-foreground" itemProp="description">
                         {service.description}
                       </p>
                       <Badge variant="outline" className="mt-1">
-                        +{service.price.toLocaleString()} ₽
+                        <span itemProp="price">+{service.price.toLocaleString()} ₽</span>
                       </Badge>
                     </div>
                   </div>
@@ -200,14 +201,14 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
             </div>
 
             {/* Price Breakdown */}
-            <Card className="bg-primary/5">
+            <Card className="bg-primary/5" itemScope itemType="https://schema.org/Offer">
               <CardHeader>
-                <CardTitle className="text-lg">Расчёт стоимости</CardTitle>
+                <CardTitle className="text-lg">Расчёт стоимости юридических услуг</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex justify-between">
-                  <span>Базовая стоимость ({getSelectedService()?.name})</span>
-                  <span>{getSelectedService()?.basePrice.toLocaleString()} ₽</span>
+                  <span>Базовая стоимость (<span itemProp="itemOffered">{getSelectedService()?.name}</span>)</span>
+                  <span itemProp="price">{getSelectedService()?.basePrice.toLocaleString()} ₽</span>
                 </div>
 
                 {selectedAdditional.length > 0 && (
@@ -227,13 +228,14 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
                 )}
 
                 <div className="border-t pt-3 flex justify-between items-center text-lg font-semibold">
-                  <span>Итоговая стоимость:</span>
-                  <span className="text-primary">{calculateTotal().toLocaleString()} ₽</span>
+                  <span>Итоговая стоимость юридических услуг:</span>
+                  <span className="text-primary" itemProp="totalPrice">{calculateTotal().toLocaleString()} ₽</span>
                 </div>
 
                 <div className="text-xs text-muted-foreground">
-                  Срок выполнения: {getSelectedService()?.timeframe}
+                  Срок выполнения: <span itemProp="deliveryTime">{getSelectedService()?.timeframe}</span>
                 </div>
+                <meta itemProp="priceCurrency" content="RUB" />
               </CardContent>
             </Card>
 
@@ -241,16 +243,16 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
             <div className="flex space-x-3">
               <Button className="flex-1" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
                 <Icon name="MessageCircle" size={16} className="mr-2" />
-                Заказать услугу
+                Заказать юридическую консультацию
               </Button>
               <Button variant="outline" onClick={resetCalculator}>
                 <Icon name="RotateCcw" size={16} className="mr-2" />
-                Сбросить
+                Пересчитать стоимость
               </Button>
             </div>
           </>
         )}
-      </>
+      </div>
     );
   };
 
@@ -258,12 +260,14 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
   if (!triggerButton) {
     return (
       <div className="max-w-4xl mx-auto">
-        <Card className="bg-white/95 backdrop-blur-sm shadow-lg">
+        <Card className="bg-white/95 backdrop-blur-sm shadow-lg" itemScope itemType="https://schema.org/WebApplication">
           <CardHeader className="text-center">
             <CardTitle className="flex items-center justify-center space-x-2 text-2xl">
               <Icon name="Calculator" size={28} className="text-primary" />
-              <span>Калькулятор стоимости услуг</span>
+              <span itemProp="name">Калькулятор стоимости юридических услуг в Екатеринбурге</span>
             </CardTitle>
+            <meta itemProp="description" content="Рассчитайте стоимость юридических услуг онлайн: консультации адвоката, перерасчет пенсии, миграционное право, арбитражные споры" />
+            <meta itemProp="applicationCategory" content="FinanceApplication" />
           </CardHeader>
           <CardContent className="space-y-6">
             {renderCalculatorContent()}
@@ -284,7 +288,7 @@ export default function PriceCalculator({ triggerButton, isOpen, onOpenChange }:
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <Icon name="Calculator" size={24} className="text-primary" />
-            <span>Калькулятор стоимости услуг</span>
+            <span>Калькулятор стоимости юридических услуг</span>
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6">
