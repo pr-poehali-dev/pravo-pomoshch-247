@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-slate-900/90 backdrop-blur-sm text-white py-12">
       <div className="relative z-10 container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Icon name="Scale" className="text-white drop-shadow-sm" size={24} />
@@ -19,28 +19,17 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-white drop-shadow-sm">Услуги</h4>
             <ul className="space-y-2 text-sm text-white/90 drop-shadow-sm">
-              <li>Арбитражные дела</li>
-              <li>Миграция и документы</li>
-              <li>Перерасчёт пенсии</li>
-              <li>Услуги адвоката</li>
+              <li><a href="#services" className="hover:text-white transition-colors">Арбитражные дела</a></li>
+              <li><a href="#services" className="hover:text-white transition-colors">Миграция и документы</a></li>
+              <li><a href="#services" className="hover:text-white transition-colors">Перерасчёт пенсии</a></li>
+              <li><a href="#services" className="hover:text-white transition-colors">Услуги адвоката</a></li>
             </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold mb-4 text-white drop-shadow-sm">Контакты</h4>
-            <div className="space-y-2 text-sm text-white/90 drop-shadow-sm">
-              <p>Екатеринбург, ул. Ленина, 56</p>
-              <p>+7 (343) XXX-XX-XX</p>
-              <p>info@pravopomoshch24.ru</p>
-              <p>Telegram: @PravoPomoshch24</p>
-            </div>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4 text-white drop-shadow-sm">Режим работы</h4>
             <div className="space-y-2 text-sm text-white/90 drop-shadow-sm">
-              <p>Бот: 24/7</p>
-              <p>Юристы: круглосуточно по вызову</p>
+              <p>Круглосуточно</p>
             </div>
           </div>
         </div>
