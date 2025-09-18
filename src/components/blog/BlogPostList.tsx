@@ -143,11 +143,11 @@ export default function BlogPostList({
             Получите персональную консультацию от наших экспертов
           </p>
           <div className="flex justify-center space-x-4">
-            <Button size="lg">
+            <Button size="lg" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
               <Icon name="Phone" size={20} className="mr-2" />
               Заказать консультацию
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => window.open('https://t.me/migracia_bot', '_blank')}>
               <Icon name="MessageCircle" size={20} className="mr-2" />
               Написать в чат
             </Button>

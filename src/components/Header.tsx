@@ -26,7 +26,7 @@ export default function Header() {
               <Link to="/blog" className="text-sm hover:text-primary transition-colors">Блог</Link>
             </>
           )}
-          <Button variant="destructive" size="sm" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
+          <Button variant="destructive" size="sm" onClick={() => window.open('https://t.me/migracia_bot', '_blank')}>
             <Icon name="Phone" size={16} className="mr-2" />
             Срочно
           </Button>

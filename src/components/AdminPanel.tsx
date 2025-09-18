@@ -57,7 +57,7 @@ export default function AdminPanel() {
 📅 Время: ${request.timestamp}`;
 
     navigator.clipboard.writeText(message);
-    alert('Заявка скопирована! Отправьте в Telegram @zakazandy_bot');
+    alert('Заявка скопирована! Отправьте в Telegram @migracia_bot');
   };
 
   if (!isVisible) {

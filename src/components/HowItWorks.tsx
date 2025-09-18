@@ -15,7 +15,7 @@ export default function HowItWorks() {
             </div>
             <h3 className="font-heading text-xl font-semibold mb-2 text-slate-900">Написать нам</h3>
             <p className="text-slate-700">
-              Опишите свою ситуацию в форме или напишите в чат
+              Опишите свою ситуацию в форме или напишите в <a href="https://t.me/migracia_bot" target="_blank" className="text-primary hover:underline">Телеграм</a>
             </p>
           </div>
           <div className="text-center">
