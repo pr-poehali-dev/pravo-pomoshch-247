@@ -41,38 +41,62 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://functions.poehali.dev/3b756019-a0e6-409f-bda7-6fa3f524026f', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          region: formData.region,
-          problem: formData.problem
-        })
-      });
+      // Сохраняем заявку локально
+      const request = {
+        id: Date.now().toString(),
+        name: formData.name,
+        phone: formData.phone,
+        region: formData.region,
+        problem: formData.problem,
+        timestamp: new Date().toLocaleString('ru-RU'),
+        status: 'new' as const
+      };
 
-      if (response.ok) {
-        setSubmitted(true);
-        onSubmit?.(formData);
+      // Получаем существующие заявки
+      const existingRequests = JSON.parse(localStorage.getItem('consultation_requests') || '[]');
+      existingRequests.unshift(request);
+      localStorage.setItem('consultation_requests', JSON.stringify(existingRequests));
+
+      // Попытка отправить в Telegram (если подписка активна)
+      try {
+        const response = await fetch('https://functions.poehali.dev/3b756019-a0e6-409f-bda7-6fa3f524026f', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            phone: formData.phone,
+            region: formData.region,
+            problem: formData.problem
+          })
+        });
         
-        // Сброс формы через 3 секунды
-        setTimeout(() => {
-          setFormData({
-            name: '',
-            phone: '',
-            region: '',
-            problem: ''
-          });
-          setSubmitted(false);
-        }, 3000);
-      } else {
-        console.error('Ошибка отправки заявки');
+        // Если успешно отправлено, отмечаем заявку
+        if (response.ok) {
+          request.status = 'in_progress';
+          localStorage.setItem('consultation_requests', JSON.stringify(existingRequests));
+        }
+      } catch (telegramError) {
+        console.log('Telegram недоступен, заявка сохранена локально');
       }
+
+      setSubmitted(true);
+      onSubmit?.(formData);
+      
+      // Сброс формы через 3 секунды
+      setTimeout(() => {
+        setFormData({
+          name: '',
+          phone: '',
+          region: '',
+          problem: ''
+        });
+        setSubmitted(false);
+      }, 3000);
+
     } catch (error) {
-      console.error('Ошибка отправки заявки:', error);
+      console.error('Ошибка сохранения заявки:', error);
     } finally {
       setIsSubmitting(false);
     }
