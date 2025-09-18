@@ -4,7 +4,7 @@ import ServicesSection from '@/components/ServicesSection';
 import HowItWorks from '@/components/HowItWorks';
 import EmergencySection from '@/components/EmergencySection';
 import Testimonials from '@/components/Testimonials';
-import ContactForm from '@/components/ContactForm';
+
 import BlogPreview from '@/components/BlogPreview';
 import AboutSection from '@/components/AboutSection';
 import Footer from '@/components/Footer';
@@ -39,7 +39,7 @@ export default function Index() {
       <HowItWorks />
       <EmergencySection />
       <Testimonials />
-      <ContactForm />
+
       <BlogPreview />
       <AboutSection />
       <Footer />
