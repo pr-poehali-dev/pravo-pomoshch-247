@@ -19,9 +19,10 @@ const federalDistricts = [
 
 interface ConsultationFormProps {
   onSubmit?: (data: { name: string; phone: string; region: string; problem: string }) => void;
+  selectedService?: string;
 }
 
-export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
+export default function ConsultationForm({ onSubmit, selectedService }: ConsultationFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -48,6 +49,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
         phone: formData.phone,
         region: formData.region,
         problem: formData.problem,
+        service: selectedService || 'Не указано',
         timestamp: new Date().toLocaleString('ru-RU'),
         status: 'new' as const
       };
@@ -68,7 +70,8 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
             name: formData.name,
             phone: formData.phone,
             region: formData.region,
-            problem: formData.problem
+            problem: formData.problem,
+            service: selectedService || 'Не указано'
           })
         });
         
@@ -135,6 +138,11 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
         <h3 className="text-xl font-bold text-slate-900 mb-2">
           Заказать консультацию
         </h3>
+        {selectedService && (
+          <p className="text-primary font-medium mb-2">
+            Услуга: {selectedService}
+          </p>
+        )}
         <p className="text-slate-600 text-sm">
           Оставьте заявку и получите консультацию юриста
         </p>

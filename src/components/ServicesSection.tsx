@@ -242,7 +242,7 @@ export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
 
-  const handleConsultationSubmit = (data: { name: string; phone: string; region: string }) => {
+  const handleConsultationSubmit = (data: { name: string; phone: string; region: string; problem: string }) => {
     console.log('Заявка на консультацию:', data);
     // Закрываем диалог после копирования
     setTimeout(() => {
@@ -393,7 +393,10 @@ export default function ServicesSection() {
                               Заполните форму для получения консультации
                             </DialogDescription>
                           </DialogHeader>
-                          <ConsultationForm onSubmit={handleConsultationSubmit} />
+                          <ConsultationForm 
+                            onSubmit={handleConsultationSubmit} 
+                            selectedService={selectedService?.title}
+                          />
                         </DialogContent>
                       </Dialog>
                     </div>

@@ -9,6 +9,7 @@ interface ConsultationRequest {
   phone: string;
   region: string;
   problem: string;
+  service?: string;
   timestamp: string;
   status: 'new' | 'in_progress' | 'completed';
 }
@@ -50,6 +51,7 @@ export default function AdminPanel() {
 👤 Имя: ${request.name}
 📞 Телефон: ${request.phone}
 🗺️ Регион: ${request.region}
+🎯 Услуга: ${request.service || 'Не указано'}
 ❓ Проблема: ${request.problem}
 
 📅 Время: ${request.timestamp}`;
@@ -123,6 +125,9 @@ export default function AdminPanel() {
                       </div>
                       <div>
                         <strong>🗺️ Регион:</strong> {request.region}
+                      </div>
+                      <div className="md:col-span-2">
+                        <strong>🎯 Услуга:</strong> {request.service || 'Не указано'}
                       </div>
                       <div className="md:col-span-2">
                         <strong>❓ Проблема:</strong> {request.problem}
