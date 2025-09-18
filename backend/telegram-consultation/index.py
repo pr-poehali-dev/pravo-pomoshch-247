@@ -8,11 +8,12 @@ class ConsultationRequest(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     phone: str = Field(..., min_length=10, max_length=20)
     problem: str = Field(..., min_length=10, max_length=1000)
+    region: str = Field(..., min_length=3, max_length=100)
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
     Business: Send consultation request to Telegram bot @zakazandy_bot
-    Args: event - dict with httpMethod, body containing name, phone, problem
+    Args: event - dict with httpMethod, body containing name, phone, problem, region
           context - object with request_id, function_name attributes
     Returns: HTTP response dict with success/error status
     '''
@@ -63,6 +64,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
 👤 Имя: {consultation_req.name}
 📞 Телефон: {consultation_req.phone}
+🗺️ Регион: {consultation_req.region}
 ❓ Проблема: {consultation_req.problem}
 
 📅 Время: {context.request_id}"""

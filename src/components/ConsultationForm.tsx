@@ -3,16 +3,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
+const federalDistricts = [
+  'Центральный федеральный округ',
+  'Северо-Западный федеральный округ', 
+  'Южный федеральный округ',
+  'Северо-Кавказский федеральный округ',
+  'Приволжский федеральный округ',
+  'Уральский федеральный округ',
+  'Сибирский федеральный округ',
+  'Дальневосточный федеральный округ'
+];
+
 interface ConsultationFormProps {
-  onSubmit?: (data: { name: string; phone: string; problem: string }) => void;
+  onSubmit?: (data: { name: string; phone: string; region: string; problem: string }) => void;
 }
 
 export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    region: '',
     problem: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,7 +34,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.phone || !formData.problem) {
+    if (!formData.name || !formData.phone || !formData.region || !formData.problem) {
       return;
     }
 
@@ -36,6 +49,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
+          region: formData.region,
           problem: formData.problem
         })
       });
@@ -49,6 +63,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
           setFormData({
             name: '',
             phone: '',
+            region: '',
             problem: ''
           });
           setSubmitted(false);
@@ -70,7 +85,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
     }));
   };
 
-  const isFormValid = formData.name && formData.phone && formData.problem;
+  const isFormValid = formData.name && formData.phone && formData.region && formData.problem;
 
   if (submitted) {
     return (
@@ -132,6 +147,25 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
             className="bg-white/90 border-slate-300 focus:border-primary"
             required
           />
+        </div>
+
+        {/* Регион */}
+        <div className="space-y-2">
+          <Label htmlFor="region" className="text-slate-900 font-medium">
+            Регион
+          </Label>
+          <Select value={formData.region} onValueChange={(value) => handleInputChange('region', value)}>
+            <SelectTrigger className="bg-white/90 border-slate-300 focus:border-primary">
+              <SelectValue placeholder="Выберите федеральный округ" />
+            </SelectTrigger>
+            <SelectContent>
+              {federalDistricts.map((district) => (
+                <SelectItem key={district} value={district}>
+                  {district}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Описание проблемы */}
