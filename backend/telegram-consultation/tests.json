@@ -1,0 +1,34 @@
+{
+  "tests": [
+    {
+      "name": "Test consultation request submission",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Петров",
+        "phone": "+7 (999) 123-45-67",
+        "problem": "Нужна помощь с трудовым спором. Работодатель не выплачивает зарплату уже 2 месяца."
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test invalid request data",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "",
+        "phone": "123"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Invalid request data"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

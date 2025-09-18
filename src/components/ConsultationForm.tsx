@@ -2,93 +2,65 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
 
-const federalDistricts = [
-  'Центральный федеральный округ',
-  'Северо-Западный федеральный округ', 
-  'Южный федеральный округ',
-  'Северо-Кавказский федеральный округ',
-  'Приволжский федеральный округ',
-  'Уральский федеральный округ',
-  'Сибирский федеральный округ',
-  'Дальневосточный федеральный округ'
-];
-
 interface ConsultationFormProps {
-  onSubmit?: (data: { name: string; phone: string; region: string }) => void;
-}
-
-interface ConsultationData {
-  name: string;
-  phone: string;
-  region: string;
+  onSubmit?: (data: { name: string; phone: string; problem: string }) => void;
 }
 
 export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    region: ''
+    problem: ''
   });
-  const [copied, setCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const formatConsultationData = (data: ConsultationData): string => {
-    const currentDate = new Date().toLocaleString('ru-RU', {
-      year: 'numeric',
-      month: 'long', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
-    return `📋 ЗАЯВКА НА ЮРИДИЧЕСКУЮ КОНСУЛЬТАЦИЮ
-
-🗓 Дата подачи: ${currentDate}
-
-👤 Клиент: ${data.name}
-📞 Телефон: ${data.phone}  
-🗺 Регион: ${data.region}
-
-📝 Статус: Новая заявка
-⏰ Требует обработки: Да
-
----
-Заявка создана через сайт юридических услуг`;
-  };
-
-  const copyToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-      return true;
-    } catch (err) {
-      console.error('Ошибка копирования:', err);
-      return false;
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.phone || !formData.region) {
+    if (!formData.name || !formData.phone || !formData.problem) {
       return;
     }
 
-    // Форматируем и копируем заявку
-    const formattedData = formatConsultationData(formData);
-    copyToClipboard(formattedData);
+    setIsSubmitting(true);
 
-    onSubmit?.(formData);
-    
-    // Сброс формы
-    setFormData({
-      name: '',
-      phone: '',
-      region: ''
-    });
+    try {
+      const response = await fetch('https://functions.poehali.dev/0ed69754-ef73-458f-bb9a-71fe91d061f8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          problem: formData.problem
+        })
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        onSubmit?.(formData);
+        
+        // Сброс формы через 3 секунды
+        setTimeout(() => {
+          setFormData({
+            name: '',
+            phone: '',
+            problem: ''
+          });
+          setSubmitted(false);
+        }, 3000);
+      } else {
+        console.error('Ошибка отправки заявки');
+      }
+    } catch (error) {
+      console.error('Ошибка отправки заявки:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -98,7 +70,25 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
     }));
   };
 
-  const isFormValid = formData.name && formData.phone && formData.region;
+  const isFormValid = formData.name && formData.phone && formData.problem;
+
+  if (submitted) {
+    return (
+      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 border border-slate-200/50">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon name="CheckCircle" className="text-green-600" size={32} />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-2">
+            Заявка отправлена!
+          </h3>
+          <p className="text-slate-600">
+            Мы получили вашу заявку и свяжемся с вами в ближайшее время.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 border border-slate-200/50">
@@ -144,53 +134,43 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
           />
         </div>
 
-        {/* Регион */}
+        {/* Описание проблемы */}
         <div className="space-y-2">
-          <Label htmlFor="region" className="text-slate-900 font-medium">
-            Федеральный округ
+          <Label htmlFor="problem" className="text-slate-900 font-medium">
+            Опишите вашу проблему
           </Label>
-          <Select value={formData.region} onValueChange={(value) => handleInputChange('region', value)}>
-            <SelectTrigger className="bg-white/90 border-slate-300 focus:border-primary">
-              <SelectValue placeholder="Выберите федеральный округ" />
-            </SelectTrigger>
-            <SelectContent>
-              {federalDistricts.map((district) => (
-                <SelectItem key={district} value={district}>
-                  {district}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Textarea
+            id="problem"
+            placeholder="Расскажите кратко о вашей ситуации..."
+            value={formData.problem}
+            onChange={(e) => handleInputChange('problem', e.target.value)}
+            className="bg-white/90 border-slate-300 focus:border-primary min-h-[100px]"
+            required
+          />
         </div>
 
         {/* Кнопка отправки */}
         <Button 
-          type="button" 
+          type="submit" 
           className="w-full mt-6"
-          onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}
+          disabled={!isFormValid || isSubmitting}
         >
-          <Icon name="Send" size={16} className="mr-2" />
-          Заказать консультацию
+          {isSubmitting ? (
+            <>
+              <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
+              Отправляем...
+            </>
+          ) : (
+            <>
+              <Icon name="Send" size={16} className="mr-2" />
+              Заказать консультацию
+            </>
+          )}
         </Button>
-
-        {/* Уведомление */}
-        {copied && (
-          <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg text-center">
-            <div className="flex items-center justify-center space-x-2 text-green-700">
-              <Icon name="CheckCircle" size={16} />
-              <span className="text-sm font-medium">
-                Заявка скопирована в буфер обмена
-              </span>
-            </div>
-            <p className="text-xs text-green-600 mt-1">
-              Вставьте данные в вашу CRM систему
-            </p>
-          </div>
-        )}
 
         {/* Дополнительная информация */}
         <p className="text-xs text-slate-500 text-center mt-4">
-          При нажатии кнопки заявка будет скопирована в буфер обмена
+          Нажимая кнопку, вы соглашаетесь на обработку персональных данных
         </p>
       </form>
     </div>
