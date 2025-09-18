@@ -12,9 +12,52 @@ export default function ContactForm() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    
+    if (!formData.name || !formData.phone || !formData.message) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Сохраняем заявку локально
+      const request = {
+        id: Date.now().toString(),
+        name: formData.name,
+        phone: formData.phone,
+        region: 'Не указан',
+        problem: formData.message,
+        service: 'Общая консультация',
+        timestamp: new Date().toLocaleString('ru-RU'),
+        status: 'new' as const
+      };
+
+      const existingRequests = JSON.parse(localStorage.getItem('consultation_requests') || '[]');
+      existingRequests.unshift(request);
+      localStorage.setItem('consultation_requests', JSON.stringify(existingRequests));
+
+      setSubmitted(true);
+      
+      // Сброс формы через 3 секунды
+      setTimeout(() => {
+        setFormData({
+          name: '',
+          phone: '',
+          message: ''
+        });
+        setSubmitted(false);
+      }, 3000);
+
+    } catch (error) {
+      console.error('Ошибка сохранения заявки:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,9 +105,28 @@ export default function ContactForm() {
                     className="bg-white/90"
                   />
                 </div>
-                <Button type="button" size="lg" className="w-full" onClick={() => window.open('https://t.me/ZokonAndy_bot', '_blank')}>
-                  <Icon name="Send" size={20} className="mr-2" />
-                  Получить консультацию
+                <Button 
+                  type="submit" 
+                  size="lg" 
+                  className="w-full" 
+                  disabled={!formData.name || !formData.phone || !formData.message || isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                      Отправляем...
+                    </>
+                  ) : submitted ? (
+                    <>
+                      <Icon name="CheckCircle" size={20} className="mr-2" />
+                      Заявка отправлена!
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="Send" size={20} className="mr-2" />
+                      Получить консультацию
+                    </>
+                  )}
                 </Button>
                 <p className="text-xs text-slate-600 text-center">
                   Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
