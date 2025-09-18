@@ -377,11 +377,11 @@ export default function ServicesSection() {
                       </div>
                     </div>
                     
-                    {/* Кнопки действий */}
-                    <div className="mt-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    {/* Кнопка действий */}
+                    <div className="mt-8 flex justify-center">
                       <Dialog open={showConsultationDialog} onOpenChange={setShowConsultationDialog}>
                         <DialogTrigger asChild>
-                          <Button className="flex-1">
+                          <Button className="w-full sm:w-auto px-8">
                             <Icon name="Phone" size={16} className="mr-2" />
                             Заказать консультацию
                           </Button>
@@ -396,10 +396,6 @@ export default function ServicesSection() {
                           <ConsultationForm onSubmit={handleConsultationSubmit} />
                         </DialogContent>
                       </Dialog>
-                      <Button variant="outline" className="flex-1" onClick={() => window.open('https://t.me/zakazandy_bot', '_blank')}>
-                        <Icon name="Calculator" size={16} className="mr-2" />
-                        Узнать стоимость
-                      </Button>
                     </div>
                   </DialogContent>
                 </Dialog>
