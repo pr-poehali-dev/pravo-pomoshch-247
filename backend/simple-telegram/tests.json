@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Test simple telegram consultation",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Тест Пользователь",
+        "phone": "+7 999 123-45-67",
+        "region": "Центральный федеральный округ",
+        "problem": "Тестовая проблема для проверки работы системы отправки заявок."
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

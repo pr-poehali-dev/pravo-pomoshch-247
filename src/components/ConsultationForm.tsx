@@ -41,7 +41,7 @@ export default function ConsultationForm({ onSubmit }: ConsultationFormProps) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://functions.poehali.dev/0ed69754-ef73-458f-bb9a-71fe91d061f8', {
+      const response = await fetch('https://functions.poehali.dev/3b756019-a0e6-409f-bda7-6fa3f524026f', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

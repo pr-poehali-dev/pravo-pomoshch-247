@@ -41,13 +41,25 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     # Parse and validate request
     try:
-        body_data = json.loads(event.get('body', '{}'))
+        body_str = event.get('body', '{}')
+        print(f"Received body: {body_str}")
+        body_data = json.loads(body_str)
+        print(f"Parsed body: {body_data}")
         consultation_req = ConsultationRequest(**body_data)
-    except (json.JSONDecodeError, ValidationError) as e:
+        print(f"Validated data: {consultation_req}")
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {e}")
         return {
             'statusCode': 400,
             'headers': {'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({'error': 'Invalid request data'})
+            'body': json.dumps({'error': f'JSON decode error: {str(e)}'})
+        }
+    except ValidationError as e:
+        print(f"Validation error: {e}")
+        return {
+            'statusCode': 400,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': f'Validation error: {str(e)}'})
         }
     
     # Get Telegram bot token
