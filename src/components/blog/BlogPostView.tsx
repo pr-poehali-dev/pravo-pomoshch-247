@@ -16,7 +16,7 @@ interface BlogPostViewProps {
 export default function BlogPostView({ post, onBack }: BlogPostViewProps) {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
 
-  const handleConsultationSubmit = (data: { name: string; phone: string; region: string }) => {
+  const handleConsultationSubmit = (data: { name: string; phone: string; region: string; problem: string }) => {
     console.log('Заявка на консультацию из блога:', data);
     // Закрываем диалог после копирования
     setTimeout(() => {
@@ -101,10 +101,16 @@ export default function BlogPostView({ post, onBack }: BlogPostViewProps) {
                         Заполните форму для получения консультации по теме статьи
                       </DialogDescription>
                     </DialogHeader>
-                    <ConsultationForm onSubmit={handleConsultationSubmit} />
+                    <ConsultationForm 
+                      onSubmit={handleConsultationSubmit} 
+                      selectedService={`Консультация по статье: ${post.title}`}
+                    />
                   </DialogContent>
                 </Dialog>
-                <Button variant="outline">
+                <Button 
+                  variant="outline" 
+                  onClick={() => window.open('https://t.me/migracia_bot', '_blank')}
+                >
                   <Icon name="MessageCircle" size={16} className="mr-2" />
                   Написать в чат
                 </Button>
