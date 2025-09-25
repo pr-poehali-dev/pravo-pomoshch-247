@@ -8,8 +8,12 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <Icon name="Scale" className="text-primary" size={28} />
+        <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+          <img 
+            src="https://cdn.poehali.dev/files/bbf08e25-285a-43c3-98e8-fcef73863f2e.png" 
+            alt="ПравоПомощь 24/7 Logo"
+            className="h-12 w-12 object-contain"
+          />
           <span className="font-heading text-xl font-bold text-primary">ПравоПомощь 24/7</span>
         </Link>
         <div className="hidden md:flex items-center space-x-6">
