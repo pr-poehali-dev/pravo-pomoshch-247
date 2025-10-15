@@ -40,16 +40,8 @@ export default function Header() {
           </Button>
         </div>
 
-        {/* Mobile menu button and CTA */}
-        <div className="flex md:hidden items-center space-x-3">
-          <Button 
-            variant="destructive" 
-            size="sm" 
-            className="px-3 py-2"
-            onClick={() => window.open('https://t.me/migracia_bot', '_blank')}
-          >
-            <Icon name="Phone" size={16} />
-          </Button>
+        {/* Mobile menu button */}
+        <div className="flex md:hidden items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 hover:bg-primary/10 rounded-lg transition-colors"
