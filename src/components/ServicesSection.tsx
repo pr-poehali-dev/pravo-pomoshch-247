@@ -251,41 +251,41 @@ export default function ServicesSection() {
   };
 
   return (
-    <section id="services" className="py-20 relative overflow-hidden" role="main" itemScope itemType="https://schema.org/Service">
+    <section id="services" className="py-12 md:py-20 relative overflow-hidden" role="main" itemScope itemType="https://schema.org/Service">
       <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(42,183,121,0.08),transparent_50%)]"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            <Icon name="Briefcase" size={16} className="mr-2" />
+        <div className="text-center mb-10 md:mb-16">
+          <div className="inline-flex items-center bg-primary/10 text-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4">
+            <Icon name="Briefcase" size={14} className="mr-1.5 md:mr-2" />
             Наши услуги
           </div>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4 px-2">
             Что решаем — и как быстро
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Профессиональная помощь по всем направлениям права с гарантией результата
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {services.map((service) => (
             <Card key={service.id} className="relative overflow-hidden bg-card hover:shadow-2xl transition-all duration-300 cursor-pointer group border-2 hover:border-primary/50">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full"></div>
               
               <CardHeader className="text-center relative z-10">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg">
                   <Icon 
                     name={service.icon as any} 
-                    size={32} 
+                    size={28} 
                     className="text-primary-foreground" 
                   />
                 </div>
-                <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
+                <CardTitle className="text-lg md:text-xl font-bold">{service.title}</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
-                <p className="text-sm text-muted-foreground mb-6 leading-relaxed min-h-[40px]">
+                <p className="text-xs md:text-sm text-muted-foreground mb-4 md:mb-6 leading-relaxed min-h-[40px]">
                   {service.description}
                 </p>
                 <div className="flex items-center justify-center gap-2 mb-4">
@@ -297,9 +297,9 @@ export default function ServicesSection() {
                     {service.duration}
                   </Badge>
                 </div>
-                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-4 mb-4">
-                  <p className="text-sm text-muted-foreground mb-1">от</p>
-                  <p className="font-bold text-2xl text-primary">{service.price}</p>
+                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-3 md:p-4 mb-3 md:mb-4">
+                  <p className="text-xs md:text-sm text-muted-foreground mb-1">от</p>
+                  <p className="font-bold text-xl md:text-2xl text-primary">{service.price}</p>
                 </div>
                 
                 <Dialog>
@@ -314,7 +314,7 @@ export default function ServicesSection() {
                       <Icon name="ArrowRight" size={16} className="ml-2" />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto mx-4">
+                  <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto mx-2 md:mx-4">
                     <DialogHeader>
                       <DialogTitle className="flex items-center space-x-2 text-xl">
                         <Icon name={service.icon as any} size={24} className="text-primary" />
@@ -424,31 +424,31 @@ export default function ServicesSection() {
         </div>
         
         {/* Дополнительная информация */}
-        <div className="mt-16">
-          <div className="bg-gradient-to-br from-card via-card to-primary/5 p-10 rounded-3xl shadow-2xl border-2 border-border">
-            <div className="grid md:grid-cols-3 gap-10">
+        <div className="mt-10 md:mt-16">
+          <div className="bg-gradient-to-br from-card via-card to-primary/5 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl border-2 border-border">
+            <div className="grid md:grid-cols-3 gap-6 md:gap-10">
               <div className="text-center group">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                  <Icon name="Zap" size={32} className="text-primary-foreground" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                  <Icon name="Zap" size={28} className="text-primary-foreground" />
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-foreground">Быстрый старт</h3>
-                <p className="text-muted-foreground leading-relaxed">Консультация и план действий в день обращения. Начинаем работу сразу.</p>
+                <h3 className="font-bold text-lg md:text-xl mb-2 md:mb-3 text-foreground">Быстрый старт</h3>
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">Консультация и план действий в день обращения. Начинаем работу сразу.</p>
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                  <Icon name="ShieldCheck" size={32} className="text-secondary-foreground" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                  <Icon name="ShieldCheck" size={28} className="text-secondary-foreground" />
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-foreground">Гарантии результата</h3>
-                <p className="text-muted-foreground leading-relaxed">Возврат средств при невыполнении обязательств. Работаем до победы.</p>
+                <h3 className="font-bold text-lg md:text-xl mb-2 md:mb-3 text-foreground">Гарантии результата</h3>
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">Возврат средств при невыполнении обязательств. Работаем до победы.</p>
               </div>
               
               <div className="text-center group">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                  <Icon name="Award" size={32} className="text-primary-foreground" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                  <Icon name="Award" size={28} className="text-primary-foreground" />
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-foreground">Команда экспертов</h3>
-                <p className="text-muted-foreground leading-relaxed">15+ лет опыта, 1200+ решенных дел. Профессионалы своего дела.</p>
+                <h3 className="font-bold text-lg md:text-xl mb-2 md:mb-3 text-foreground">Команда экспертов</h3>
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">15+ лет опыта, 1200+ решенных дел. Профессионалы своего дела.</p>
               </div>
             </div>
           </div>
