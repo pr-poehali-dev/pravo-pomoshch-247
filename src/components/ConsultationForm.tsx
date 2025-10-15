@@ -116,15 +116,15 @@ export default function ConsultationForm({ onSubmit, selectedService }: Consulta
 
   if (submitted) {
     return (
-      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 border border-slate-200/50">
+      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 md:p-6 border border-slate-200/50">
         <div className="text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Icon name="CheckCircle" className="text-green-600" size={32} />
+          <div className="w-14 h-14 md:w-16 md:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <Icon name="CheckCircle" className="text-green-600" size={28} />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">
+          <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2">
             Заявка отправлена!
           </h3>
-          <p className="text-slate-600">
+          <p className="text-sm md:text-base text-slate-600">
             Мы получили вашу заявку и свяжемся с вами в ближайшее время.
           </p>
         </div>
@@ -133,17 +133,17 @@ export default function ConsultationForm({ onSubmit, selectedService }: Consulta
   }
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 border border-slate-200/50">
-      <div className="text-center mb-6">
-        <h3 className="text-xl font-bold text-slate-900 mb-2">
+    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 md:p-6 border border-slate-200/50">
+      <div className="text-center mb-5 md:mb-6">
+        <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2">
           Заказать консультацию
         </h3>
         {selectedService && (
-          <p className="text-primary font-medium mb-2">
+          <p className="text-primary font-medium mb-2 text-sm md:text-base">
             Услуга: {selectedService}
           </p>
         )}
-        <p className="text-slate-600 text-sm">
+        <p className="text-slate-600 text-xs md:text-sm">
           Оставьте заявку и получите консультацию юриста
         </p>
       </div>
