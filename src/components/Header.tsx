@@ -10,14 +10,23 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b shadow-sm">
       <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2 md:space-x-3 hover:opacity-80 transition-opacity">
-          <img 
-            src="https://cdn.poehali.dev/files/bbf08e25-285a-43c3-98e8-fcef73863f2e.png" 
-            alt="ПравоПомощь 24/7 Logo"
-            className="h-10 w-10 md:h-12 md:w-12 object-contain"
-          />
-          <span className="font-heading text-base md:text-xl font-bold text-primary">ПравоПомощь 24/7</span>
-        </Link>
+        <div className="flex items-center space-x-4 md:space-x-6">
+          <Link to="/" className="flex items-center space-x-2 md:space-x-3 hover:opacity-80 transition-opacity">
+            <img 
+              src="https://cdn.poehali.dev/files/bbf08e25-285a-43c3-98e8-fcef73863f2e.png" 
+              alt="ПравоПомощь 24/7 Logo"
+              className="h-10 w-10 md:h-12 md:w-12 object-contain"
+            />
+            <span className="font-heading text-base md:text-xl font-bold text-primary">ПравоПомощь 24/7</span>
+          </Link>
+          <a 
+            href="tel:+79770985807" 
+            className="hidden lg:flex items-center space-x-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
+          >
+            <Icon name="Phone" size={16} className="text-primary" />
+            <span>+7 (977) 098-58-07</span>
+          </a>
+        </div>
         
         {/* Desktop menu */}
         <div className="hidden md:flex items-center space-x-6">
