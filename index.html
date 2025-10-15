@@ -46,11 +46,12 @@
       "name": "ПравоПомощь 24/7",
       "description": "Круглосуточная юридическая помощь. Защита в суде, миграционное право, перерасчет пенсий, помощь при задержании.",
       "url": "https://pravo-pomoshch-247.poehali.dev",
-      "telephone": "+7-800-555-35-35",
+      "telephone": "+7-977-098-58-07",
       "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 00:00-23:59",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Россия"
+      "areaServed": "Москва",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Москва"
       },
       "serviceType": [
         "Юридические консультации",
@@ -59,9 +60,41 @@
         "Перерасчет пенсий",
         "Помощь при задержании"
       ],
-      "priceRange": "$$",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "RUB",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "Уточняйте"
+        }
+      },
       "sameAs": [
         "https://t.me/ZokonAndy_bot"
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Как быстро подключаетесь к делу?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Обычно в день обращения. Для выезда к задержанному — срочно, в пределах Москвы."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Сколько стоит защита по делу?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Фиксированный пакет или почасовая оплата. Базовая консультация бесплатна."
+          }
+        }
       ]
     }
     </script>
