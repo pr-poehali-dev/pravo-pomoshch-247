@@ -55,7 +55,11 @@ export default function Header() {
             className="p-2 hover:bg-primary/10 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
-            <Icon name={mobileMenuOpen ? "X" : "Menu"} size={24} className="text-primary" />
+            {mobileMenuOpen ? (
+              <Icon name="X" size={24} className="text-primary" />
+            ) : (
+              <Icon name="Menu" size={24} className="text-primary" />
+            )}
           </button>
         </div>
       </div>

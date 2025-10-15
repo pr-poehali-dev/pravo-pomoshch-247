@@ -8,15 +8,14 @@ interface IconProps extends LucideProps {
 }
 
 const Icon: React.FC<IconProps> = ({ name, fallback = 'CircleAlert', ...props }) => {
-  const IconComponent = (LucideIcons as Record<string, React.FC<LucideProps>>)[name];
+  const IconComponent = (LucideIcons as any)[name];
 
-  if (!IconComponent) {
-    // Если иконка не найдена, используем fallback иконку
-    const FallbackIcon = (LucideIcons as Record<string, React.FC<LucideProps>>)[fallback];
+  if (!IconComponent || typeof IconComponent !== 'function') {
+    const FallbackIcon = (LucideIcons as any)[fallback];
 
-    // Если даже fallback не найден, возвращаем пустой span
-    if (!FallbackIcon) {
-      return <span className="text-xs text-gray-400">[icon]</span>;
+    if (!FallbackIcon || typeof FallbackIcon !== 'function') {
+      console.warn(`Icon "${name}" and fallback "${fallback}" not found in lucide-react`);
+      return <span className="text-xs text-gray-400">[{name}]</span>;
     }
 
     return <FallbackIcon {...props} />;
