@@ -1,5 +1,6 @@
 import { blogPostsGroup1 } from './data/BlogPostsGroup1';
 import { blogPostsGroup2 } from './data/BlogPostsGroup2';
+import { blogPostsGroup3 } from './data/BlogPostsGroup3';
 
 export interface BlogPost {
   id: string;
@@ -19,5 +20,6 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   ...blogPostsGroup1,
-  ...blogPostsGroup2
+  ...blogPostsGroup2,
+  ...blogPostsGroup3
 ];
