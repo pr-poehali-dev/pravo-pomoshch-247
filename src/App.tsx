@@ -11,6 +11,7 @@ import Ceny from "./pages/Ceny";
 import OnlineKonsultaciya from "./pages/OnlineKonsultaciya";
 import NotFound from "./pages/NotFound";
 import AdminPanel from "./components/AdminPanel";
+import TelegramWidget from "./components/TelegramWidget";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <AdminPanel />
+        <TelegramWidget />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
