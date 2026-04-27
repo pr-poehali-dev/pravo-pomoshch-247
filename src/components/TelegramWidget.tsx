@@ -84,25 +84,14 @@ export default function TelegramWidget() {
   };
 
   return (
-    <div
-      className="fixed z-50"
-      style={{ bottom: '1.5rem', right: '6rem' }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Всплывающая подсказка */}
-      {hovered && !isOpen && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-800 text-white text-xs rounded-lg px-3 py-2 whitespace-nowrap shadow-lg pointer-events-none">
-          Написать консультанту
-          <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800" />
-        </div>
-      )}
-
-      {/* Окно чата */}
+    <>
+      {/* Окно чата — на мобилке на весь экран, на десктопе — всплывашка */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-80 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200" style={{ height: '420px' }}>
+        <div className="fixed inset-0 sm:inset-auto sm:bottom-28 sm:right-6 z-50 flex flex-col sm:w-80 sm:rounded-2xl bg-white shadow-2xl overflow-hidden border border-gray-200"
+          style={{ height: undefined }}
+        >
           {/* Шапка */}
-          <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: '#29A8E0' }}>
+          <div className="flex items-center justify-between px-4 py-3 flex-shrink-0" style={{ backgroundColor: '#29A8E0' }}>
             <div className="flex items-center gap-2">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                 <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/>
@@ -112,8 +101,8 @@ export default function TelegramWidget() {
                 <p className="text-white text-xs opacity-80">Онлайн</p>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-white opacity-80 hover:opacity-100">
-              <Icon name="X" size={18} />
+            <button onClick={() => setIsOpen(false)} className="text-white opacity-80 hover:opacity-100 p-1">
+              <Icon name="X" size={20} />
             </button>
           </div>
 
@@ -122,7 +111,7 @@ export default function TelegramWidget() {
             {messages.map(msg => (
               <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
+                  className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
                     msg.from === 'user'
                       ? 'text-white rounded-br-sm'
                       : 'bg-white text-gray-800 rounded-bl-sm shadow-sm'
@@ -137,7 +126,7 @@ export default function TelegramWidget() {
           </div>
 
           {/* Ввод */}
-          <div className="flex items-center gap-2 px-3 py-2 border-t border-gray-200 bg-white">
+          <div className="flex items-center gap-2 px-3 py-3 border-t border-gray-200 bg-white flex-shrink-0">
             <input
               className="flex-1 text-sm border border-gray-200 rounded-full px-4 py-2 outline-none focus:border-blue-400"
               placeholder="Написать сообщение..."
@@ -149,7 +138,7 @@ export default function TelegramWidget() {
             <button
               onClick={send}
               disabled={!input.trim() || sending}
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white disabled:opacity-40 transition"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 transition flex-shrink-0"
               style={{ backgroundColor: '#29A8E0' }}
             >
               <Icon name="Send" size={16} />
@@ -159,16 +148,29 @@ export default function TelegramWidget() {
       )}
 
       {/* Кнопка */}
-      <button
-        onClick={() => setIsOpen(o => !o)}
-        className="flex items-center justify-center w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-        style={{ backgroundColor: '#29A8E0' }}
+      <div
+        className="fixed z-50"
+        style={{ bottom: '1.5rem', right: '6rem' }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/>
-        </svg>
-      </button>
-      <span className="block text-center text-xs font-medium text-gray-600 mt-1">Telegram</span>
-    </div>
+        {hovered && !isOpen && (
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-800 text-white text-xs rounded-lg px-3 py-2 whitespace-nowrap shadow-lg pointer-events-none hidden sm:block">
+            Написать консультанту
+            <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800" />
+          </div>
+        )}
+        <button
+          onClick={() => setIsOpen(o => !o)}
+          className="flex items-center justify-center w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          style={{ backgroundColor: '#29A8E0' }}
+        >
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/>
+          </svg>
+        </button>
+        <span className="block text-center text-xs font-medium text-gray-600 mt-1">Telegram</span>
+      </div>
+    </>
   );
 }
