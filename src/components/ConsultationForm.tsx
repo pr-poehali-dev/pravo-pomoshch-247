@@ -59,28 +59,19 @@ export default function ConsultationForm({ onSubmit, selectedService }: Consulta
       existingRequests.unshift(request);
       localStorage.setItem('consultation_requests', JSON.stringify(existingRequests));
 
-      // Попытка отправить в Telegram (если подписка активна)
+      // Отправляем заявку в Telegram
       try {
-        const response = await fetch('https://functions.poehali.dev/3b756019-a0e6-409f-bda7-6fa3f524026f', {
+        const text = `📋 НОВАЯ ЗАЯВКА\n\n👤 Имя: ${formData.name}\n📞 Телефон: ${formData.phone}\n🗺️ Регион: ${formData.region}\n⚖️ Услуга: ${selectedService || 'Не указано'}\n❓ Проблема: ${formData.problem}`;
+        const response = await fetch('https://functions.poehali.dev/d5e08afb-6949-4e0b-8018-be8e24e83784', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            phone: formData.phone,
-            region: formData.region,
-            problem: formData.problem,
-            service: selectedService || 'Не указано'
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'send', text, session_id: 'форма-заявки' })
         });
-        
-        // Если успешно отправлено, отмечаем заявку
         if (response.ok) {
           request.status = 'in_progress';
           localStorage.setItem('consultation_requests', JSON.stringify(existingRequests));
         }
-      } catch (telegramError) {
+      } catch (_e) {
         console.log('Telegram недоступен, заявка сохранена локально');
       }
 
